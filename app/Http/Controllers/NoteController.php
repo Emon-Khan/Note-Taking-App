@@ -12,7 +12,9 @@ class NoteController extends Controller
      */
     public function index()
     {
-        $note = Note::orderBy('created_at', 'DESC')->get();
+        $user = auth()->user();
+        $note = Note::where('user_id', $user->id)->get();
+        //$note = Note::orderBy('created_at', 'DESC')->get();
 
         return view('note.index', compact('note'));
     }
@@ -22,8 +24,7 @@ class NoteController extends Controller
      */
     public function create()
     {
-        return view("note.create
-        ");
+        return view("note.create");
     }
 
     /**
@@ -31,7 +32,12 @@ class NoteController extends Controller
      */
     public function store(Request $request)
     {
-        Note::create($request->all());
+        $userId = auth()->user()->id;
+        $requestData = $request->all();
+        $requestData['user_id'] = $userId;
+
+        Note::create($requestData);
+
         return redirect()->route("note")->with("success", "Note added successfully");
     }
 

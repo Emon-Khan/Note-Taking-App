@@ -17,7 +17,7 @@
                 <textarea class="form-control" name="content" placeholder="Content"></textarea>
             </div>
         </div>
- 
+
         <div class="row">
             <div class="d-grid">
                 <button type="submit" class="btn btn-primary">Submit</button>
